@@ -1,0 +1,41 @@
+{
+  "name": "@iw/pnpm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "packageManager": "pnpm@6.32.2",
+  "scripts": {
+    "test": "turbo run test -- -- --watchAll=false",
+    "testw": "node scripts/choice test",
+    "testp": "node scripts/choice test -- --watchAll=false",
+    "storybook": "node scripts/choice storybook",
+    "build-storybook": "node scripts/choice build-storybook",
+    "clean": "rm -rf node_modules && pnpm -r clean",
+    "refresh": "pnpm clean && pnpm install",
+    "build": "turbo run build",
+    "graph": "turbo run build --graph=graph.html",
+    "buildp": "node scripts/choice build",
+    "dev_ideal": "turbo run dev --no-cache --parallel --continue",
+    "dev": "turbo run build --scope=@iw* --no-deps && turbo run dev --no-cache --parallel --continue",
+    "lint": "turbo run lint",
+    "lintp": "node scripts/choice lint",
+    "cypress": "turbo run cypress --continue",
+    "cypressp": "node scripts/choice cypress --headed",
+    "cypressw": "node scripts/choice cypress --headless"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@storybook/addon-actions": "^6.4.9",
+    "@storybook/addon-essentials": "^6.4.9",
+    "@storybook/addon-links": "^6.4.9",
+    "@storybook/node-logger": "^6.4.9",
+    "@storybook/preset-create-react-app": "^3.2.0",
+    "@storybook/react": "^6.4.9",
+    "inquirer": "^8.2.0",
+    "jest": "^27.5.1",
+    "prettier": "^2.5.1",
+    "turbo": "1.1.4",
+    "webpack": "5.68.0"
+  }
+}
