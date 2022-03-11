@@ -209,7 +209,7 @@ To support TypeScript a `tsconfig.json` file will have been created if you used 
 
 #### Eslint Configuration
 
-To configure eslint the first thing you need to do is add a `lint` script to your `package.json` file. Once you've done this you may then optionally add an `.eslintrc.js` to customise eslint. By importing from the base we can share a common eslint while allowing slightly different configurations for each different package/app.
+To configure eslint the first thing you need to do is remove any `eslintConfig` section from your `package.json` file and instead add a `lint` script. Once you've done this you may then optionally add an `.eslintrc.js` to customise eslint. By importing from the base we can share a common eslint while allowing slightly different configurations for each different package/app.
 
 > If you don't want to completely overwrite the configuration from the shared config, ensure that you use a spread syntax.
 
@@ -255,3 +255,34 @@ There are a number of scripts that should exist within your `package.json` file 
 | cypress         | `./node_modules/.bin/cypress run`                     | **(Optional)** Runs Cypress for the package                                                               |
 
 #### Adding Storybook
+
+Storybook can be added to your project in the usual way by running `pnpx sb init` from the package that you wish to add it to, however there are a couple of caveats for when using a pnpm monorepo.
+
+Firstly you must make sure there are no imports from other packages in the workspace within your `package.json` file for which you wish to add storybook to. This is because storybook is unable to parse the syntax and will instead provide the following error:
+
+> Unsupported URL Type "workspace:": workspace:1.0.0
+
+First briefly remove any dependencies such as these from the `package.json` file, then run the following:
+
+```
+pnpx sb init
+rm -rf node_modules
+rm package-lock.json
+cd ../../
+pnpm install
+```
+
+At this point you can re-instate any of those dependencies. The next thing you must do is modify the [addons slightly](https://github.com/storybookjs/storybook/issues/13428#issuecomment-754169198). To do this open up the `.storybook/main.js` file and swap the following addon `"@storybook/preset-create-react-app"` to be :
+
+```
+{
+      name: "@storybook/preset-create-react-app",
+      options: {
+        scriptsPackageName: 'react-scripts'
+      }
+    }
+```
+
+You should now be able to run Storybook from the root of your application using the `pnpm storybookw` command.
+
+> Note: The `storybookp` command builds storybook for the package, rather than launching and running in watch mode.
