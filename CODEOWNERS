@@ -1,0 +1,12 @@
+
+# Applicaitons
+apps/app    @team1 
+apps/app2   @team2
+
+# UI Libraries
+packages/button     @team3
+packages/title  @team3
+packages/text   @team3
+
+# Utility Libraries
+packages/log    @team4

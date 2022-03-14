@@ -13,6 +13,7 @@
     "clean": "rm -rf node_modules && pnpm -r clean",
     "refresh": "pnpm clean && pnpm install",
     "build": "turbo run build",
+    "buildw": "turbo run build --scope=@iw* --no-deps -- -- -w",
     "graph": "turbo run build --graph=graph.html",
     "buildp": "node scripts/choice build",
     "dev_ideal": "turbo run dev --no-cache --parallel --continue",
