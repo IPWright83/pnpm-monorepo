@@ -30,7 +30,7 @@ There are a number of useful scripts provided at the root of the project. The ai
 
 - `test`, `build`, `lint`, `cypress` (Run against all packages)
 - `testp`, `buildp`, `lintp`, `cypressp`, `storybookp` (Run against a single package - **p** suffix)
-- `testw`, `dev`, `cypressw`, `storybookw` (Run against a single in watch-mode - **w** suffix)
+- `testw`, `buildw`, `dev`, `cypressw`, `storybookw` (Run against a single in watch-mode - **w** suffix)
 
 Other useful scripts:
 
@@ -43,6 +43,8 @@ If you need to manually run a script against a single package you can still do t
 ```
 pnpm run <script-name> --filter <package|app>
 ```
+
+> Note: to ensure that IDEs/editors understand references and Typescript types correctly, you normally need to run a `pnpm run buildw` to ensure any changes are reflected in the built output. Additionally some editors needs the files to be there before opening the solution, so it's worth running this script before opening your editor.
 
 ## Installing a package as a dependancy
 
