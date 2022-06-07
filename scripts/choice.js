@@ -1,9 +1,9 @@
-const fs = require('fs');
-const { spawn } = require('child_process');
+const fs = require("fs");
+const { spawn } = require("child_process");
 
-const inquirer = require('inquirer');
+const inquirer = require("inquirer");
 
-const packageFolders = ['apps', 'packages'];
+const packageFolders = ["apps", "packages"];
 
 /**
  * Gets a list of all the package names that contain the given script name
@@ -15,9 +15,7 @@ const getPackageNamesWithScript = (scriptName, folder) => {
     return fs
         .readdirSync(folder)
         .filter((dir) => fs.existsSync(`${folder}/${dir}/package.json`))
-        .map((dir) =>
-            JSON.parse(fs.readFileSync(`${folder}/${dir}/package.json`, 'utf8')),
-        )
+        .map((dir) => JSON.parse(fs.readFileSync(`${folder}/${dir}/package.json`, "utf8")))
         .filter((package) => package.scripts[scriptName])
         .map((package) => package.name);
 };
@@ -28,18 +26,16 @@ const getPackageNamesWithScript = (scriptName, folder) => {
  * @return {Promise<string>} A promise that resolves with the name of the package, or "all"
  */
 const getChoice = (scriptName) => {
-    const packageNames = packageFolders.flatMap((folder) =>
-        getPackageNamesWithScript(scriptName, folder),
-    );
+    const packageNames = packageFolders.flatMap((folder) => getPackageNamesWithScript(scriptName, folder));
 
     // Let the user select a choice and resolve with the response
     return new Promise((resolve) => {
         inquirer
             .prompt([
                 {
-                    type: 'list',
-                    name: 'package',
-                    message: 'For which package?',
+                    type: "list",
+                    name: "package",
+                    message: "For which package?",
                     choices: packageNames,
                 },
             ])
@@ -56,28 +52,18 @@ const getChoice = (scriptName) => {
  */
 const runForChoice = (scriptName, choice, extraArgs = []) => {
     if (extraArgs.length > 0) {
-        extraArgs = ['--', ...extraArgs];
+        extraArgs = ["--", ...extraArgs];
     }
 
-    const args = [
-        'turbo',
-        'run',
-        scriptName,
-        '--no-deps', // This stops running the task for upstream packages (consumers)
-        '--include-dependencies', // This ensure dependent packages task's are run
-        `--scope=${choice}`,
-        ...extraArgs,
-    ];
+    const args = ["turbo", "run", scriptName, `--filter=${choice}`, ...extraArgs];
 
-    spawn('pnpm', args, { stdio: 'inherit' });
+    spawn("pnpm", args, { stdio: "inherit" });
 };
 
 (async function () {
     const args = process.argv.slice(2, 3);
     if (args.length < 1) {
-        console.error(
-            "Incorrect number of arguments. Expected 1 argument e.g. 'test' or 'storybook'",
-        );
+        console.error("Incorrect number of arguments. Expected 1 argument e.g. 'test' or 'storybook'");
     }
 
     const scriptName = args[0];
