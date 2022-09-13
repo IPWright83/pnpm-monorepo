@@ -1,5 +1,4 @@
 import { useTheme } from "@material-ui/core";
-import "@iw/types";
 
 export const useMUITest = (): void => {
     const theme = useTheme();
