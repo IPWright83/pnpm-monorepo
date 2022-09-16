@@ -1,4 +1,4 @@
-declare module "@material-ui/core" {
+declare module "@material-ui/core/styles/createPalette" {
     interface CommonColors {
         amberGreen: string;
         green2: string;
