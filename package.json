@@ -11,6 +11,7 @@
     "storybookw": "node scripts/choice storybook",
     "storybookp": "node scripts/choice build-storybook",
     "clean": "rm -rf node_modules && pnpm -r clean",
+    "cy": "turbo run cy",
     "refresh": "pnpm clean && pnpm install",
     "build": "turbo run build",
     "buildw": "turbo run build --scope=@iw* --no-deps -- -- -w",

@@ -15,6 +15,7 @@
     "jest": "^27.5.1"
   },
   "scripts": {
+    "cy": "echo 'Hello World'",
     "build": "tsc",
     "dev": "tsc -w",
     "lint": "eslint .",

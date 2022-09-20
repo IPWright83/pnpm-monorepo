@@ -16,6 +16,9 @@
     "lint": {
       "outputs": []
     },
+    "cy": {
+      "dependsOn": ["^build"]
+    },
     "test": {
       "dependsOn": ["^build"]
     },
