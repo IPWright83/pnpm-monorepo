@@ -1,0 +1,25 @@
+---
+name: On Push to Master
+
+on:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  deploy_storybook:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          run_install: false
+      - name: pnpm Install
+        run: pnpm install
+      - name: Deploy
+        run: npm run deploy-storybook -- --ci
+        env:
+          GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
