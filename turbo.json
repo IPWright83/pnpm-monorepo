@@ -11,7 +11,7 @@
       "dependsOn": ["^dev"]
     },
     "cypress": {
-      "dependsOn": ["^dev"]
+      "dependsOn": ["^build"]
     },
     "lint": {
       "outputs": []

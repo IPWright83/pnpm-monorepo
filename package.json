@@ -21,7 +21,7 @@
     "lint": "turbo run lint",
     "lintp": "node scripts/choice lint",
     "cypress": "turbo run cypress --continue",
-    "cypressp": "node scripts/choice cypress --headed",
+    "cypressp": "node scripts/choice cypress --headless",
     "cypressw": "node scripts/choice cypress --headed"
   },
   "author": "",
